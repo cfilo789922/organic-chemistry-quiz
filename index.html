@@ -9,51 +9,89 @@
 
 <body>
     <div id="app">
-        <h1>官能基マスター</h1>
-        <p>有機化学の核となる官能基をマスターしよう</p>
-
 
         <div id="menu">
-            <h2>モードを選択</h2>
+            <h1>有機化学マスター</h1>
+            <p class="menu-subtitle">有機化学の核となる官能基を習得しよう</p>
 
-            <button onclick="startQuiz(1)">
-                構造式　→　官能基名
-            </button>
+            <div class="menu-section">
+                <h3>LEARNING MENU</h3>
+                <p class="section-descriction">学習モードを選択</p>
 
-            <button onclick="startQuiz(2)">
-                構造式　→　一般名
-            </button>
+                <button class="menu-card quiz-card" onclick="startQuiz(1)">
+                    <span class="card-number">01</span>
+                    <span class="card-text">
+                        <strong>官能基名を答える</strong>
+                        <small>構造式　→　官能基名</small>
+                    </span>
+                    <span class="card-arrow">》</span>
+                </button>
 
-            <button onclick="startQuiz(3)">
-                官能基名　→　構造式
-            </button>
+                <button class="menu-card quiz-card" onclick="startQuiz(2)">
+                    <span class="card-number">02</span>
+                    <span class="card-text">
+                        <strong>一般名を答える</strong>
+                        <small>構造式　→　一般名</small>
+                    </span>
+                    <span class="card-arrow">》</span>
+                </button>
 
-            <button onclick="showRecords()">
-                学習記録
-            </button>
+                <button class="menu-card quiz-card" onclick="startQuiz(3)">
+                    <span class="card-number">03</span>
+                    <span class="card-text">
+                        <strong>構造式を答える</strong>
+                        <small>官能基名　→　構造式</small>
+                    </span>
+                    <span class="card-arrow">》</span>
+                </button>
+            </div>
+
+            <div class="record-section">
+                <h3>YOUR PROGRESS</h3>
+
+                <button class="menu-card record-card" onclick="showRecords()">
+                    <span class="card-text">
+                        <strong>学習記録</strong>
+                        <small>官能基ごとの正答率を確認</small>
+                    </span>
+                </button>
+            </div>
+
         </div>
 
+
+
         <div id="quiz-screen" style="display: none;">
-            <h2 id="quiz-title">問題</h2>
+            <h3 id="quiz-title">問題</h3>
+
             <p id="question-number"></p>
+
+            <div id="progress-bar">
+                <div id="progress"></div>
+            </div>
 
             <div id="question"></div>
             <div id="choices"></div>
             <div id="feedback"></div>
-            <button id="next-button" onclick="nextQuestion()" style="display: none;">
-                次へ
-            </button>
 
+            <div id="next-button-area">
+                <button id="next-button" onclick="nextQuestion()" style="display: none;">
+                    次へ
+                </button>
+            </div>
         </div>
+
+
 
         <div id="record-screen" style="display: none;">
             <h2>学習記録</h2>
             <div id="record-list"></div>
+            <button onclick="returnMenu()">メニューへ戻る</button>
         </div>
 
         <div id="result-screen" style="display: none;">
             <h2>結果</h2>
-            <p id="result-score"></p>
+            <h2 id="result-score"></h2>
             <button onclick="returnMenu()">メニューへ戻る</button>
         </div>
 
