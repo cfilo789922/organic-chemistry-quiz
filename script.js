@@ -73,7 +73,7 @@ let correctCount = 0;
 
 
 
-//クイズ画面表示
+//モード選択画面表示
 function startQuiz(mode){
     selectedMode = mode;
     currentQuestion = 0;
@@ -111,8 +111,18 @@ function showRecords(){
             :Math.round(record.correct / record.attempts * 100);
 
         recordList.innerHTML +=`
-            <p>${group.name}：${rate}％
-            (${record.correct}/${record.attempts})</P>
+            <div class="record-item">
+                <div class="record-info">
+                    <span>${group.name}</span>
+                    <span>${rate}％</span>
+                </div>
+
+                <div class="record-bar">
+                    <div class="record-progress" style="width: ${rate}%"</div>
+                </div>
+
+                (${record.correct}/${record.attempts})</P>
+            </div>
             `;
     });
 }
@@ -120,6 +130,12 @@ function showRecords(){
 //問題表示
 function showQuestion(){
     let currentQuiz = shuffledGroups[currentQuestion];
+
+    document.getElementById("question-number").textContent = 
+        `${currentQuestion + 1} / ${shuffledGroups.length}問`;
+
+    document.getElementById("progress").style.width =
+        `${(currentQuestion + 1) / shuffledGroups.length * 100}%`;
 
     if(selectedMode === 1){  //構造式→官能基名
         document.getElementById("question").innerHTML = 
@@ -188,13 +204,13 @@ function checkAnswer(selectedGroup, selectedButton){
             selectedButton.style.backgroundColor = "red";
 
         }
+    }
 
     localStorage.setItem("studyRecords",JSON.stringify(studyRecords));
-    }
 
     choices.querySelectorAll("button").forEach(button => {
         button.disabled = true;
-        });
+        }); //選択肢ボタンを無効化
 
     document.getElementById("next-button").style.display = "block";
 
@@ -230,11 +246,11 @@ function showResult(){
 //メニューへ戻る
 function returnMenu(){
     document.getElementById("result-screen").style.display = "none";
+    document.getElementById("record-screen").style.display = "none";
     document.getElementById("menu").style.display = "block";
 }
 
 
-//構造式描画
 //構造式描画
 function drawStructure(structure) {
     const structures = {
@@ -245,7 +261,6 @@ function drawStructure(structure) {
                 <line x1="80" y1="40" x2="100" y2="40"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">O</text>
                 <text x="110" y="46">H</text>
             `
@@ -258,9 +273,7 @@ function drawStructure(structure) {
                 <line x1="80" y1="40" x2="100" y2="40"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">O</text>
-                <text x="110" y="46">R</text>
             `
         },
 
@@ -273,9 +286,7 @@ function drawStructure(structure) {
                 <line x1="74" y1="50" x2="74" y2="70"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">C</text>
-                <text x="110" y="46">R</text>
                 <text x="70" y="86">O</text>
             `
         },
@@ -289,7 +300,6 @@ function drawStructure(structure) {
                 <line x1="74" y1="50" x2="74" y2="70"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">C</text>
                 <text x="110" y="46">H</text>
                 <text x="70" y="86">O</text>
@@ -306,7 +316,6 @@ function drawStructure(structure) {
                 <line x1="74" y1="50" x2="74" y2="70"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">C</text>
                 <text x="110" y="46">O</text>
                 <text x="150" y="46">H</text>
@@ -324,10 +333,8 @@ function drawStructure(structure) {
                 <line x1="74" y1="50" x2="74" y2="70"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">C</text>
                 <text x="110" y="46">O</text>
-                <text x="150" y="46">R</text>
                 <text x="70" y="86">O</text>
             `
         },
@@ -340,7 +347,6 @@ function drawStructure(structure) {
                 <line x1="70" y1="50" x2="70" y2="70"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">N</text>
                 <text x="110" y="46">H</text>
                 <text x="70" y="86">H</text>
@@ -358,10 +364,8 @@ function drawStructure(structure) {
                 <line x1="110" y1="50" x2="110" y2="70"/>
             `,
             atoms: `
-                <text x="30" y="46">R</text>
                 <text x="70" y="46">C</text>
                 <text x="110" y="46">N</text>
-                <text x="150" y="46">R</text>
                 <text x="70" y="86">O</text>
                 <text x="110" y="86">H</text>
             `
